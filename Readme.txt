@@ -1,4 +1,9 @@
-It is the following distribution has been modified (as suggested by the development environment) so that no errors occur when recompiling it in the .Net7 environment.
+When I recompiled the PSDPlugin source code with .NET7, I encountered some errors.
+Therefore, I made some modifications as suggested by the development environment, 
+confirmed that the error disappeared and that it worked properly, and decided to redistribute it.
+However, I am not the original developer and cannot add features or directly fix bugs.
+note that.
+
 
 
 Photoshop PSD FileType Plugin for Paint.NET
