@@ -28,6 +28,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
     /// </summary>
     public static string ToPsdBlendMode(this LayerBlendMode pdnBlendMode)
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
@@ -42,6 +43,8 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
       switch (pdnBlendMode)
       {
         case LayerBlendMode.Normal:
@@ -78,6 +81,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
           Debug.Fail("Unknown Paint.NET blend mode.");
           return PsdBlendMode.Normal;
       }
+<<<<<<< HEAD
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -92,6 +96,8 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
     }
 
     /// <summary>
@@ -102,6 +108,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       switch (blendModeKey)
       {
         case PsdBlendMode.Normal:
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           return LayerBlendMode.Normal;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -142,13 +149,39 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           return LayerBlendMode.Screen;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          return LayerBlendMode.Normal;
+
+        case PsdBlendMode.Multiply:
+          return LayerBlendMode.Multiply;
+        case PsdBlendMode.LinearDodge:
+          return LayerBlendMode.Additive;
+        case PsdBlendMode.ColorBurn:
+          return LayerBlendMode.ColorBurn;
+        case PsdBlendMode.ColorDodge:
+          return LayerBlendMode.ColorDodge;
+        case PsdBlendMode.Overlay:
+          return LayerBlendMode.Overlay;
+        case PsdBlendMode.Difference:
+          return LayerBlendMode.Difference;
+        case PsdBlendMode.Lighten:
+          return LayerBlendMode.Lighten;
+        case PsdBlendMode.Darken:
+          return LayerBlendMode.Darken;
+        case PsdBlendMode.Screen:
+          return LayerBlendMode.Screen;
+>>>>>>> origin/master
 
         // Photoshop blend modes without a Paint.NET equivalent are loaded
         // as Normal.
         default:
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           return LayerBlendMode.Normal;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          return LayerBlendMode.Normal;
+>>>>>>> origin/master
       }
     }
 

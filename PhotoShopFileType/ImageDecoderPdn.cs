@@ -101,9 +101,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
     public static unsafe void DecodeImage(BitmapLayer pdnLayer,
       PhotoshopFile.Layer psdLayer)
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       var decodeContext = new DecodeContext(psdLayer, pdnLayer.Bounds);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      var decodeContext = new DecodeContext(psdLayer, pdnLayer.Bounds);
+>>>>>>> origin/master
       DecodeDelegate decoder = null;
 
       if (decodeContext.ByteDepth == 4)
@@ -168,9 +172,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
       DecodeContext decodeContext, DecodeDelegate decoder)
     {
       var psdLayer = decodeContext.Layer;
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       var surface = pdnLayer.Surface;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      var surface = pdnLayer.Surface;
+>>>>>>> origin/master
       var rect = decodeContext.Rectangle;
 
       // Convert rows from the Photoshop representation, writing the
@@ -184,9 +192,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
         int idxSrcByte = idxSrcPixel * decodeContext.ByteDepth;
 
         // Calculate pointers to destination Surface.
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         var pDestRow = surface.GetRowPointer(y);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        var pDestRow = surface.GetRowAddress(y);
+>>>>>>> origin/master
         var pDestStart = pDestRow + decodeContext.Rectangle.Left;
         var pDestEnd = pDestRow + decodeContext.Rectangle.Right;
 
@@ -223,9 +235,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
         ColorBgra* pDest = pDestStart;
         while (pDest < pDestEnd)
         {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           pDest->A = 255;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          pDest->A = 255;
+>>>>>>> origin/master
           pDest++;
         }
       }
@@ -238,11 +254,17 @@ namespace PaintDotNet.Data.PhotoshopFileType
           byte* pSrcAlpha = pSrcAlphaChannel + idxSrc;
           while (pDest < pDestEnd)
           {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
             pDest->A = (byteDepth < 4)
               ? *pSrcAlpha
               : RGBByteFromHDRFloat(pSrcAlpha);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+            pDest->A = (byteDepth < 4)
+              ? *pSrcAlpha
+              : RGBByteFromHDRFloat(pSrcAlpha);
+>>>>>>> origin/master
 
             pDest++;
             pSrcAlpha += byteDepth;
@@ -372,11 +394,15 @@ namespace PaintDotNet.Data.PhotoshopFileType
           var pMask = pMaskAlpha;
           while (pDest < pDestEnd)
           {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
             pDest->A = (byte)(pDest->A * *pMask / 255);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+            pDest->A = (byte)(pDest->A * *pMask / 255);
+>>>>>>> origin/master
             pDest++;
             pMask++;
           }
@@ -395,11 +421,15 @@ namespace PaintDotNet.Data.PhotoshopFileType
           while (pDest < pDestEnd)
           {
             var alphaFactor = (*pMask1) * (*pMask2);
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
             pDest->A = (byte)(pDest->A * alphaFactor / 65025);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+            pDest->A = (byte)(pDest->A * alphaFactor / 65025);
+>>>>>>> origin/master
 
             pDest++;
             pMask1++;
@@ -424,6 +454,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       {
         while (pDest < pDestEnd)
         {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           pDest->R = RGBByteFromHDRFloat(pSrcRedChannel + idxSrc);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -433,6 +464,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           pDest->B = RGBByteFromHDRFloat(pSrcBlueChannel + idxSrc);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          pDest->R = RGBByteFromHDRFloat(pSrcRedChannel + idxSrc);
+          pDest->G = RGBByteFromHDRFloat(pSrcGreenChannel + idxSrc);
+          pDest->B = RGBByteFromHDRFloat(pSrcBlueChannel + idxSrc);
+>>>>>>> origin/master
 
           pDest++;
           idxSrc += 4;
@@ -449,6 +485,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
         {
           byte* pSource = channelPtr + idxSrc;
           byte rgbValue = RGBByteFromHDRFloat(pSource);
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           pDest->R = rgbValue;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -458,6 +495,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           pDest->B = rgbValue;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          pDest->R = rgbValue;
+          pDest->G = rgbValue;
+          pDest->B = rgbValue;
+>>>>>>> origin/master
 
           pDest++;
           idxSrc += 4;
@@ -476,6 +518,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
     {
       while (pDest < pDestEnd)
       {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->R = context.Channels[0].ImageData[idxSrc];
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -485,6 +528,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->B = context.Channels[2].ImageData[idxSrc];
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        pDest->R = context.Channels[0].ImageData[idxSrc];
+        pDest->G = context.Channels[1].ImageData[idxSrc];
+        pDest->B = context.Channels[2].ImageData[idxSrc];
+>>>>>>> origin/master
 
         pDest++;
         idxSrc += context.ByteDepth;
@@ -521,6 +569,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
         int nGreen = 255 - Math.Min(255, M * (255 - K) / 255 + K);
         int nBlue = 255 - Math.Min(255, Y * (255 - K) / 255 + K);
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->R = (byte)nRed;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -530,6 +579,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->B = (byte)nBlue;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        pDest->R = (byte)nRed;
+        pDest->G = (byte)nGreen;
+        pDest->B = (byte)nBlue;
+>>>>>>> origin/master
 
         pDest++;
         idxSrc += context.ByteDepth;
@@ -546,6 +600,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
         byte bwValue = (byte)(bitmap[idxSrc / 8] & mask);
         bwValue = (bwValue == 0) ? (byte)255 : (byte)0;
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->R = bwValue;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -555,6 +610,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->B = bwValue;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        pDest->R = bwValue;
+        pDest->G = bwValue;
+        pDest->B = bwValue;
+>>>>>>> origin/master
 
         pDest++;
         idxSrc += context.ByteDepth;
@@ -567,6 +627,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       while (pDest < pDestEnd)
       {
         var level = context.Channels[0].ImageData[idxSrc];
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->R = level;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -576,6 +637,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->B = level;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        pDest->R = level;
+        pDest->G = level;
+        pDest->B = level;
+>>>>>>> origin/master
 
         pDest++;
         idxSrc += context.ByteDepth;
@@ -588,6 +654,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       while (pDest < pDestEnd)
       {
         int index = (int)context.Channels[0].ImageData[idxSrc];
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->R = (byte)context.Layer.PsdFile.ColorModeData[index];
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -597,6 +664,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->B = context.Layer.PsdFile.ColorModeData[index + 2 * 256];
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        pDest->R = (byte)context.Layer.PsdFile.ColorModeData[index];
+        pDest->G = context.Layer.PsdFile.ColorModeData[index + 256];
+        pDest->B = context.Layer.PsdFile.ColorModeData[index + 2 * 256];
+>>>>>>> origin/master
 
         pDest++;
         idxSrc += context.ByteDepth;
@@ -729,6 +801,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
           nBlue = 255;
         }
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->R = (byte)nRed;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -738,6 +811,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         pDest->B = (byte)nBlue;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        pDest->R = (byte)nRed;
+        pDest->G = (byte)nGreen;
+        pDest->B = (byte)nBlue;
+>>>>>>> origin/master
 
         pDest++;
         idxSrc += context.ByteDepth;

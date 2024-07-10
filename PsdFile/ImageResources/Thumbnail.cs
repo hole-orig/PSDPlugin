@@ -52,11 +52,15 @@ namespace PhotoshopFile
         // Raw RGB bitmap
         if (format == 0)
         {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           Image = new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          Image = new Bitmap((int)width, (int)height, PixelFormat.Format24bppRgb);
+>>>>>>> origin/master
         }
         // JPEG bitmap
         else if (format == 1)
@@ -64,12 +68,17 @@ namespace PhotoshopFile
           byte[] imgData = reader.ReadBytes(numBytes - HEADER_LENGTH);
           using (MemoryStream stream = new MemoryStream(imgData))
           {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
             var bitmap = new Bitmap(stream);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
             Image = (Bitmap)bitmap.Clone();
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+            var bitmap = new Bitmap(stream);
+            Image = (Bitmap)bitmap.Clone();
+>>>>>>> origin/master
           }
 
           // Reverse BGR pixels from old thumbnail format

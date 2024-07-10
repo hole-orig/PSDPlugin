@@ -49,16 +49,24 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
     protected override void InitFileType()
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         this.fileType = new PhotoshopFileType();
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        this.fileType = new PhotoshopFileType();
+>>>>>>> origin/master
     }
 
     protected override void InitTokenFromWidget()
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       ((PsdSaveConfigToken)this.token).RleCompress = this.rleCompressCheckBox.Checked;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      ((PsdSaveConfigToken)this.token).RleCompress = this.rleCompressCheckBox.Checked;
+>>>>>>> origin/master
     }
 
     protected override void InitWidgetFromToken(SaveConfigToken token)
@@ -86,9 +94,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
         }
       }
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       base.Dispose(disposing);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      base.Dispose(disposing);
+>>>>>>> origin/master
     }
 
     #region Component Designer generated code
@@ -124,9 +136,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
     private void OnCheckedChanged(object sender, System.EventArgs e)
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         this.UpdateToken();
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        this.UpdateToken();
+>>>>>>> origin/master
     }
   }
 }

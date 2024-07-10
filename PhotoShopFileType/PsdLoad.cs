@@ -37,13 +37,18 @@ namespace PaintDotNet.Data.PhotoshopFileType
       }
 
       // Convert into Paint.NET internal representation
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       var document = new Document(psdFile.ColumnCount, psdFile.RowCount);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      var document = new Document(psdFile.ColumnCount, psdFile.RowCount);
+>>>>>>> origin/master
 
       if (psdFile.Layers.Count == 0)
       {
         psdFile.BaseLayer.CreateMissingChannels();
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         var layer = Layer.CreateBackgroundLayer(psdFile.ColumnCount, psdFile.RowCount);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -53,12 +58,18 @@ namespace PaintDotNet.Data.PhotoshopFileType
         document.Layers.Add(layer);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        var layer = Layer.CreateBackgroundLayer(psdFile.ColumnCount, psdFile.RowCount);
+        ImageDecoderPdn.DecodeImage(layer, psdFile.BaseLayer);
+        document.Layers.Add(layer);
+>>>>>>> origin/master
       }
       else
       {
         psdFile.VerifyLayerSections();
         ApplyLayerSections(psdFile.Layers);
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         var pdnLayers = psdFile.Layers.AsParallel().AsOrdered()
@@ -71,6 +82,12 @@ namespace PaintDotNet.Data.PhotoshopFileType
         document.Layers.AddRange(pdnLayers);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        var pdnLayers = psdFile.Layers.AsParallel().AsOrdered()
+          .Select(psdLayer => psdLayer.DecodeToPdnLayer())
+          .ToList();
+        document.Layers.AddRange(pdnLayers);
+>>>>>>> origin/master
       }
 
       SetPdnResolutionInfo(psdFile, document);
@@ -84,6 +101,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       var psdFile = psdLayer.PsdFile;
       psdLayer.CreateMissingChannels();
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       var pdnLayer = new BitmapLayer(psdFile.ColumnCount, psdFile.RowCount);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -99,6 +117,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       pdnLayer.BlendMode = BlendModeMapping.FromPsdBlendMode(psdLayer.BlendModeKey);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      var pdnLayer = new BitmapLayer(psdFile.ColumnCount, psdFile.RowCount);
+      pdnLayer.Name = psdLayer.Name;
+      pdnLayer.Opacity = psdLayer.Opacity;
+      pdnLayer.Visible = psdLayer.Visible;
+      pdnLayer.BlendMode = BlendModeMapping.FromPsdBlendMode(psdLayer.BlendModeKey);
+>>>>>>> origin/master
       ImageDecoderPdn.DecodeImage(pdnLayer, psdLayer);
 
       return pdnLayer;
@@ -244,6 +269,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
         if ((psdFile.Resolution.HResDisplayUnit == ResolutionInfo.ResUnit.PxPerCm)
           && (psdFile.Resolution.VResDisplayUnit == ResolutionInfo.ResUnit.PxPerCm))
         {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           document.DpuUnit = MeasurementUnit.Centimeter;
@@ -272,6 +298,20 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           document.DpuY = psdFile.Resolution.VDpi;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          document.DpuUnit = MeasurementUnit.Centimeter;
+
+          // HACK: Paint.NET truncates DpuX and DpuY to three decimal places,
+          // so add 0.0005 to get a rounded value instead.
+          document.DpuX = psdFile.Resolution.HDpi / 2.54 + 0.0005;
+          document.DpuY = psdFile.Resolution.VDpi / 2.54 + 0.0005;
+        }
+        else
+        {
+          document.DpuUnit = MeasurementUnit.Inch;
+          document.DpuX = psdFile.Resolution.HDpi;
+          document.DpuY = psdFile.Resolution.VDpi;
+>>>>>>> origin/master
         }
       }
     }

@@ -15,7 +15,10 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 
 using NUnit.Framework;
+<<<<<<< HEAD
 using NUnit.Framework.Legacy;
+=======
+>>>>>>> origin/master
 
 namespace PhotoshopFile.Tests
 {
@@ -89,7 +92,11 @@ namespace PhotoshopFile.Tests
       channel.ImageData = null;
       channel.DecodeImageData();
 
+<<<<<<< HEAD
       ClassicAssert.AreEqual(imageData, channel.ImageData,
+=======
+      Assert.AreEqual(imageData, channel.ImageData,
+>>>>>>> origin/master
         $"Image data changed after {compression} a compress/decompress cycle.");
     }
 

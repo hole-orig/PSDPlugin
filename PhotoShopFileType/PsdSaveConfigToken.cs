@@ -39,9 +39,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
     public override void Validate()
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       base.Validate();
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      base.Validate();
+>>>>>>> origin/master
     }
 
   }

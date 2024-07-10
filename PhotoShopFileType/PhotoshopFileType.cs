@@ -40,6 +40,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
   public class PhotoshopFileType : FileType
   {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
     public PhotoshopFileType() : base(
       "Photoshop",
@@ -58,6 +59,16 @@ namespace PaintDotNet.Data.PhotoshopFileType
       })
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+    public PhotoshopFileType() : base(
+      "Photoshop",
+      new FileTypeOptions()
+      {
+        LoadExtensions = new string[] { ".psd", ".psb" },
+        SaveExtensions = new string[] { ".psd", ".psb" },
+        SupportsLayers = true
+      })
+>>>>>>> origin/master
     {
     }
 

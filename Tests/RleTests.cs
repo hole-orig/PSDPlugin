@@ -17,7 +17,10 @@ using System.Linq;
 using System.Text;
 
 using NUnit.Framework;
+<<<<<<< HEAD
 using NUnit.Framework.Legacy;
+=======
+>>>>>>> origin/master
 
 namespace PhotoshopFile.Tests
 {
@@ -41,7 +44,11 @@ namespace PhotoshopFile.Tests
         Assert.Fail("Failed with seed = " + testData.Seed + "\n" + e.ToString());
       }
 
+<<<<<<< HEAD
       ClassicAssert.AreEqual(testData.Data, decodedData,
+=======
+      Assert.AreEqual(testData.Data, decodedData,
+>>>>>>> origin/master
         "Decoded RLE stream differs from original data, seed = " + testData.Seed);
     }
 
@@ -77,7 +84,11 @@ namespace PhotoshopFile.Tests
         Assert.Fail("Failed with seed = " + testData.Seed + "\n" + e.ToString());
       }
 
+<<<<<<< HEAD
       ClassicAssert.AreEqual(testData.Data, decodedData,
+=======
+      Assert.AreEqual(testData.Data, decodedData,
+>>>>>>> origin/master
         "Decoded RLE stream differs from original data, seed = " + testData.Seed);
     }
 
@@ -370,11 +381,19 @@ namespace PhotoshopFile.Tests
           "Flag counter does not indicate a replicate.");
 
         var runLength = 1 - flagCounter;
+<<<<<<< HEAD
         ClassicAssert.AreEqual(runLength, this.count,
           "Flag counter does not match expected run length.");
 
         var replicateByte = stream.ReadByte();
         ClassicAssert.AreEqual(replicateByte, value,
+=======
+        Assert.AreEqual(runLength, this.count,
+          "Flag counter does not match expected run length.");
+
+        var replicateByte = stream.ReadByte();
+        Assert.AreEqual(replicateByte, value,
+>>>>>>> origin/master
           "Replicate byte does not match.");
       }
     }
@@ -409,16 +428,28 @@ namespace PhotoshopFile.Tests
       public void ReadAndCheckPacket(Stream stream)
       {
         var flagCounter = unchecked((sbyte)stream.ReadByte());
+<<<<<<< HEAD
         ClassicAssert.GreaterOrEqual(flagCounter, 0,
           "Flag counter does not indicate a literal.");
 
         var count = flagCounter + 1;
         ClassicAssert.AreEqual(count, value.Length,
+=======
+        Assert.GreaterOrEqual(flagCounter, 0,
+          "Flag counter does not indicate a literal.");
+
+        var count = flagCounter + 1;
+        Assert.AreEqual(count, value.Length,
+>>>>>>> origin/master
           "Flag counter does not match literal data length.");
 
         var streamLiteral = new byte[count];
         stream.Read(streamLiteral, 0, count);
+<<<<<<< HEAD
         ClassicAssert.AreEqual(streamLiteral, value,
+=======
+        Assert.AreEqual(streamLiteral, value,
+>>>>>>> origin/master
           "Literal data packet does not match.");
       }
     }

@@ -27,6 +27,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
     public static void Save(Document input, Stream output, PsdSaveConfigToken psdToken,
       Surface scratchSurface, ProgressEventHandler progressCallback)
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       var psdVersion = ((input.Height > 30000) || (input.Width > 30000))
@@ -42,6 +43,15 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       psdFile.ColumnCount = input.Width;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      var psdVersion = ((input.Height > 30000) || (input.Width > 30000))
+        ? PsdFileVersion.PsbLargeDocument
+        : PsdFileVersion.Psd;
+      var psdFile = new PsdFile(psdVersion);
+
+      psdFile.RowCount = input.Height;
+      psdFile.ColumnCount = input.Width;
+>>>>>>> origin/master
 
       // We only save in RGBA format, 8 bits per channel, which corresponds to
       // Paint.NET's internal representation.
@@ -56,6 +66,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
       // Treat the composite image as another layer when reporting progress.
       var progress = new ProgressNotifier(progressCallback);
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       var percentPerLayer = percentStoreImages
         / (input.Layers.Count + 1);
@@ -72,6 +83,18 @@ namespace PaintDotNet.Data.PhotoshopFileType
         progress.Notify(percentRenderComposite);
       }
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+      var percentPerLayer = percentStoreImages
+        / (input.Layers.Count + 1);
+
+      // Render the composite image.  This operation is parallelized within
+      // Paint.NET using its own private thread pool.
+      using (var ra = new RenderArgs(scratchSurface))
+      {
+        input.Flatten(scratchSurface);
+        progress.Notify(percentRenderComposite);
+      }
+>>>>>>> origin/master
 
       // Delegate to store the composite
       Action storeCompositeAction = () =>
@@ -98,6 +121,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       {
         // LayerList is an ArrayList, so we have to cast to get a generic
         // IEnumerable that works with LINQ.
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         var pdnLayers = input.Layers.Cast<BitmapLayer>();
@@ -106,6 +130,9 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+        var pdnLayers = input.Layers.Cast<BitmapLayer>();
+>>>>>>> origin/master
         var psdLayers = pdnLayers.AsParallel().AsOrdered().Select(pdnLayer =>
         {
           var psdLayer = new PhotoshopFile.Layer(psdFile);
@@ -114,9 +141,12 @@ namespace PaintDotNet.Data.PhotoshopFileType
           progress.Notify(percentPerLayer);
           return psdLayer;
         });
+<<<<<<< HEAD
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
         psdFile.Layers.AddRange(psdLayers);
       };
 
@@ -133,18 +163,26 @@ namespace PaintDotNet.Data.PhotoshopFileType
       resInfo.HeightDisplayUnit = ResolutionInfo.Unit.Inches;
       resInfo.WidthDisplayUnit = ResolutionInfo.Unit.Inches;
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
       if (input.DpuUnit == MeasurementUnit.Inch)
       {
         resInfo.HResDisplayUnit = ResolutionInfo.ResUnit.PxPerInch;
         resInfo.VResDisplayUnit = ResolutionInfo.ResUnit.PxPerInch;
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         resInfo.HDpi = new UFixed16_16(input.DpuX);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         resInfo.VDpi = new UFixed16_16(input.DpuY);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        resInfo.HDpi = new UFixed16_16(input.DpuX);
+        resInfo.VDpi = new UFixed16_16(input.DpuY);
+>>>>>>> origin/master
       }
       else
       {
@@ -153,6 +191,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
         // Always stored as pixels/inch even if the display unit is
         // pixels/centimeter.
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         resInfo.HDpi = new UFixed16_16(input.DpuX * 2.54);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -161,6 +200,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
       }
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        resInfo.HDpi = new UFixed16_16(input.DpuX * 2.54);
+        resInfo.VDpi = new UFixed16_16(input.DpuY * 2.54);
+      }
+>>>>>>> origin/master
 
       return resInfo;
     }
@@ -171,8 +215,11 @@ namespace PaintDotNet.Data.PhotoshopFileType
     /// </summary>
     private static Rectangle FindImageRectangle(Surface surface)
     {
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
       var rectPos = new Util.RectanglePosition
       {
         Left = surface.Width,
@@ -180,41 +227,62 @@ namespace PaintDotNet.Data.PhotoshopFileType
         Right = 0,
         Bottom = 0
       };
+<<<<<<< HEAD
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
 
       unsafe
       {
         // Search for top non-transparent pixel
         bool fPixelFound = false;
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         for (int y = 0; y < surface.Height; y++)
         {
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+        for (int y = 0; y < surface.Height; y++)
+        {
+>>>>>>> origin/master
           if (ExpandImageRectangle(surface, y, 0, surface.Width, ref rectPos))
           {
             fPixelFound = true;
             break;
           }
+<<<<<<< HEAD
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
         }
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        }
+>>>>>>> origin/master
 
         // Narrow down the other dimensions of the image rectangle
         if (fPixelFound)
         {
           // Search for bottom non-transparent pixel
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           for (int y = surface.Height - 1; y > rectPos.Bottom; y--)
           {
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+          for (int y = surface.Height - 1; y > rectPos.Bottom; y--)
+          {
+>>>>>>> origin/master
             if (ExpandImageRectangle(surface, y, 0, surface.Width, ref rectPos))
             {
               break;
             }
+<<<<<<< HEAD
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
           }
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          }
+>>>>>>> origin/master
 
           // Search for left and right non-transparent pixels.  Because we
           // scan horizontally, we can't just break, but we can examine fewer
@@ -222,9 +290,13 @@ namespace PaintDotNet.Data.PhotoshopFileType
           for (int y = rectPos.Top + 1; y < rectPos.Bottom; y++)
           {
             ExpandImageRectangle(surface, y, 0, rectPos.Left, ref rectPos);
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
             ExpandImageRectangle(surface, y, rectPos.Right + 1, surface.Width, ref rectPos);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+            ExpandImageRectangle(surface, y, rectPos.Right + 1, surface.Width, ref rectPos);
+>>>>>>> origin/master
           }
         }
         else
@@ -253,6 +325,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
     {
       bool fPixelFound = false;
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       ColorBgra* rowStart = surface.GetRowPointer(y);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -260,6 +333,12 @@ namespace PaintDotNet.Data.PhotoshopFileType
       for (int x = xStart; x < xEnd; x++)
       {
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+      ColorBgra* rowStart = surface.GetRowAddress(y);
+      ColorBgra* pixel = rowStart + xStart;
+      for (int x = xStart; x < xEnd; x++)
+      {
+>>>>>>> origin/master
         if (pixel->A > 0)
         {
           // Expand the rectangle to include the specified point.  
@@ -281,7 +360,10 @@ namespace PaintDotNet.Data.PhotoshopFileType
           }
           fPixelFound = true;
         }
+<<<<<<< HEAD
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+>>>>>>> origin/master
         pixel++;
       }
 
@@ -295,6 +377,7 @@ namespace PaintDotNet.Data.PhotoshopFileType
       PhotoshopFile.Layer psdLayer, PsdSaveConfigToken psdToken)
     {
       // Set layer metadata
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       psdLayer.Name = layer.Name;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -308,6 +391,12 @@ namespace PaintDotNet.Data.PhotoshopFileType
       psdLayer.Opacity = layer.Opacity;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+      psdLayer.Name = layer.Name;
+      psdLayer.Rect = FindImageRectangle(layer.Surface);
+      psdLayer.BlendModeKey = layer.BlendMode.ToPsdBlendMode();
+      psdLayer.Opacity = layer.Opacity;
+>>>>>>> origin/master
       psdLayer.Visible = layer.Visible;
       psdLayer.Masks = new MaskInfo();
       psdLayer.BlendingRangesData = new BlendingRanges(psdLayer);
@@ -324,10 +413,14 @@ namespace PaintDotNet.Data.PhotoshopFileType
 
       // Store and compress channel image data
       var channelsArray = psdLayer.Channels.ToIdArray();
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
       StoreLayerImage(channelsArray, psdLayer.AlphaChannel, layer.Surface, psdLayer.Rect);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
+=======
+      StoreLayerImage(channelsArray, psdLayer.AlphaChannel, layer.Surface, psdLayer.Rect);
+>>>>>>> origin/master
     }
 
     /// <summary>
@@ -343,15 +436,20 @@ namespace PaintDotNet.Data.PhotoshopFileType
       for (int y = 0; y < rect.Height; y++)
       {
         int destRowIndex = y * rect.Width;
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
         ColorBgra* srcRow = surface.GetRowPointer(y + rect.Top);
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+        ColorBgra* srcRow = surface.GetRowAddress(y + rect.Top);
+>>>>>>> origin/master
         ColorBgra* srcPixel = srcRow + rect.Left;
 
         for (int x = 0; x < rect.Width; x++)
         {
           int destIndex = destRowIndex + x;
 
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           channels[0].ImageData[destIndex] = srcPixel->R;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
@@ -364,6 +462,12 @@ namespace PaintDotNet.Data.PhotoshopFileType
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           alphaChannel.ImageData[destIndex] = srcPixel->A;
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          channels[0].ImageData[destIndex] = srcPixel->R;
+          channels[1].ImageData[destIndex] = srcPixel->G;
+          channels[2].ImageData[destIndex] = srcPixel->B;
+          alphaChannel.ImageData[destIndex] = srcPixel->A;
+>>>>>>> origin/master
           srcPixel++;
         }
       }
@@ -395,11 +499,15 @@ namespace PaintDotNet.Data.PhotoshopFileType
         lock (this)
         {
           percent += percentIncrement;
+<<<<<<< HEAD
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
 #pragma warning disable CA1416 // プラットフォームの互換性を検証
           callback.Invoke(null, new ProgressEventArgs(percent));
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
 #pragma warning restore CA1416 // プラットフォームの互換性を検証
+=======
+          callback.Invoke(null, new ProgressEventArgs(percent));
+>>>>>>> origin/master
         }
       }
     }
