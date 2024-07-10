@@ -1,4 +1,7 @@
-﻿Photoshop PSD FileType Plugin for Paint.NET
+It is the following distribution has been modified (as suggested by the development environment) so that no errors occur when recompiling it in the .Net7 environment.
+
+
+Photoshop PSD FileType Plugin for Paint.NET
 
 
 Description
